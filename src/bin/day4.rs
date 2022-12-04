@@ -22,19 +22,17 @@ fn main() {
         })
         .collect::<Vec<_>>();
 
-    let part1: u32 = contents
+    let part1 = contents
         .iter()
-        .map(|ranges| {
-            ((ranges[0].is_subset(&ranges[1]) || ranges[1].is_subset(&ranges[0])) as u8) as u32
-        })
-        .sum::<u32>();
+        .filter(|ranges| ranges[0].is_subset(&ranges[1]) || ranges[1].is_subset(&ranges[0]))
+        .count();
 
     println!("Part 1: {}", part1);
 
-    let part2: u32 = contents
+    let part2 = contents
         .iter()
-        .map(|ranges| ((ranges[0].intersection(&ranges[1]).count() > 0) as u8) as u32)
-        .sum::<u32>();
+        .filter(|ranges| ranges[0].intersection(&ranges[1]).count() > 0)
+        .count();
 
     println!("Part 2: {}", part2);
 }
