@@ -5,8 +5,22 @@ use anyhow::Result;
 fn get_start(line: &str, size: usize) -> usize {
     line.as_bytes()
         .windows(size)
-        .position(|set| set.iter().collect::<HashSet<_>>().len() == size)
-        .map(|pos| pos + size)
+        .position(|set| {
+            let mut data = 0;
+
+            for &c in set {
+                let prev: usize = data;
+                // Bit masking to see if character already exists
+                data |= 1 << (c - b'a');
+
+                if prev == data {
+                    return false;
+                }
+            }
+
+            true
+        })
+        .map(|i| i + size)
         .unwrap()
 }
 
