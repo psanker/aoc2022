@@ -5,10 +5,8 @@ use anyhow::Result;
 fn get_start(line: &str, size: usize) -> usize {
     line.as_bytes()
         .windows(size)
-        .enumerate()
-        .filter(|(_, set)| set.iter().collect::<HashSet<_>>().len() == size)
-        .map(|(i, _)| i + size)
-        .nth(0)
+        .position(|set| set.iter().collect::<HashSet<_>>().len() == size)
+        .map(|pos| pos + size)
         .unwrap()
 }
 
