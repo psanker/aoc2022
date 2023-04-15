@@ -1,0 +1,1 @@
+let () = DayOne.run ()
