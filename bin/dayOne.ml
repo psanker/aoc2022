@@ -1,3 +1,5 @@
+open Core
+
 let max_cals input =
     let rec max_cals' input acc top = 
         match input with
@@ -28,5 +30,5 @@ let top_three_cals input =
 
 let run () =
     let lines = Advent.read_lines "inputs/day1.txt" in
-    Printf.printf "%d\n" (max_cals lines);
-    Printf.printf "%d\n" (List.fold_left (+) 0 @@ top_three_cals lines)
+    printf "%d\n" (max_cals lines);
+    printf "%d\n%!" @@ List.fold ~init:0 ~f:(+) (top_three_cals lines)

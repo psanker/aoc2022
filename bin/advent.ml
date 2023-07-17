@@ -1,14 +1,7 @@
-let read_lines file_name : string list =
-    let ic = open_in file_name in
-    let try_read () =
-        try 
-            Some (input_line ic) 
-        with End_of_file -> 
-            None 
-    in let rec loop acc = 
-        match try_read () with
-        | Some line -> loop (line :: acc)
-        | None -> close_in ic; List.rev acc in
-    loop []
+open Core
 
-
+let read_lines file_name =
+    let file = In_channel.create file_name in
+    let lines = In_channel.input_lines file in
+    let () = In_channel.close file in
+    lines
